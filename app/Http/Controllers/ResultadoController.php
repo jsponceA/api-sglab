@@ -52,13 +52,13 @@ class ResultadoController extends Controller
                         "apenom" => '%'.$apenom.'%'
                     ]);
                 }elseif(!empty($fechaInicio) || !empty($fechaFin)){
-                    $resultados = DB::select("exec dbo.dbo.web_ordenesxcodigociaxfecha :codigo,:fechaInicio,:fechaFin ",[
+                    $resultados = DB::select("exec dbo.web_ordenesxcodigociaxfecha :codigo,:fechaInicio,:fechaFin ",[
                         "codigo" => $codigo,
                         "fechaInicio" => $fechaInicio,
                         "fechaFin" => $fechaFin
                     ]);
                 }else{
-                    $resultados = DB::select("exec dbo.web_ordenesxcodigocia :codigo,'%'",[
+                    $resultados = DB::select("exec dbo.web_ordenesxcodigocia :codigo",[
                         "codigo" => $codigo
                     ]);
                 }

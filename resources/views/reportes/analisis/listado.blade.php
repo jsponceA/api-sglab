@@ -1,23 +1,30 @@
 <!doctype html>
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>RESULTADO DE ANALISIS - {{$ticket}}</title>
     <style>
-        body{
+        *{
             font-family: Arial, serif;
+            margin-top: 5px !important;
+            margin-bottom: 5px !important;
+
+        }
+        body{
+
         }
         .page-break {
             page-break-after: always;
         }
+
     </style>
 </head>
 <body>
 @foreach($analisis as $key => $groupAnalisis)
     <div style="width: 100%">
         <p style="margin: 0;text-align: right;font-size: 13px">Pag. {{$loop->iteration}}/{{$loop->count}}</p>
-        <img src="{{asset('img/hoja-membretada-01_01.png')}}" style="width: 100%;height: 130px" alt="">
-        <hr style="color: #39a6be">
+        <img src="{{asset('img/hoja-membretada-01_01.png')}}" style="width: 100%;height: 96px" alt="">
+        <hr style="color: #49B8E5;">
     </div>
     <div style="width: 100%">
         <div style="border-radius: 10px;border:2px solid black;padding: 10px;font-size: 14px;">
@@ -50,10 +57,10 @@
         <table border="0" cellpadding="0" style="width: 100%;border: 2px solid black;border-collapse: collapse;">
             <tbody>
             <tr style="font-size: 14px">
-                <td width="280px"><b>ANALISIS</b></td>
-                <td style="text-align: center"><b>RESULTADO</b></td>
-                <td style="text-align: center"><b>UNIDAD</b></td>
-                <td style="text-align: center"><b>VALORES DE REFERENCIA</b></td>
+                <td width="280px" style="padding: 5px"><b>ANALISIS</b></td>
+                <td style="padding: 5px"><b>RESULTADO</b></td>
+                <td style="padding: 5px"><b>UNIDAD</b></td>
+                <td style="text-align: center;padding: 5px"><b>VALORES DE REFERENCIA</b></td>
             </tr>
             </tbody>
         </table>
@@ -66,7 +73,13 @@
             </tr>
             @foreach($groupAnalisis as $an)
                 <tr style="font-size: 14px">
-                    <td width="270px">{{$an->nombreexamen}}</td>
+                    <td width="270px">
+                        @if($an->validadom == 0)
+                            <b><i>{{$an->nombreexamen}}</i></b>
+                        @else
+                            {{$an->nombreexamen}}
+                        @endif
+                    </td>
                     <td width="100px" style="text-align: center">{{$an->resultado}}</td>
                     <td width="90px" style="text-align: center">{{$an->unidad}}</td>
                     <td >
@@ -85,9 +98,9 @@
 
     <div style="width: 100%;position: absolute;bottom: 0">
         <div style="text-align: right">
-            <img src="{{asset('img/hoja-membretada-01_04.png')}}" style="width: 260px;height: 103px;" alt="">
+            <img src="{{asset('img/firma_dr_rafael.png')}}" style="width: 260px;height: 103px;" alt="">
         </div>
-        <hr style="color: #39a6be">
+        <hr style="color: #49B8E5">
         <img src="{{asset('img/hoja-membretada-01_07.png')}}" style="width: 100%;" alt="">
     </div>
     @if(!$loop->last)
