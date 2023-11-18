@@ -28,6 +28,7 @@ class AuthController extends Controller
 
             $usuarioData = [
                 "usuario" => $usuario,
+                "apenom" => !empty($validarDatos->apenom) ? $validarDatos->apenom : $validarDatos->nombre,
                 "tipoUsuario" => $tipoUsuario,
                 "codigo" => $validarDatos->codigo,
             ];
