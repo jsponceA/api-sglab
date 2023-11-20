@@ -23,44 +23,44 @@ class ResultadoController extends Controller
 
         switch ($tipoUsuario) {
             case 'paciente':
-                $resultados = DB::select("exec dbo.web_ordenesxcodigopaciente :codigo", [
+                $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigopaciente :codigo", [
                     "codigo" => $codigo
                 ]);
                 break;
             case 'medico':
                 if (!empty($apenom) && (empty($fechaInicio) && empty($fechaFin))) {
-                    $resultados = DB::select("exec dbo.web_ordenesxcodigomedicoxapenom :codigo,:apenom ", [
+                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigomedicoxapenom :codigo,:apenom ", [
                         "codigo" => $codigo,
                         "apenom" => '%' . $apenom . '%'
                     ]);
                 } elseif (!empty($apenom) && (!empty($fechaInicio) || !empty($fechaFin))) {
-                    $resultados = DB::select("exec dbo.web_ordenesxcodigomedicoxfecha :codigo,:fechaInicio,:fechaFin,:apenom ", [
+                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigomedicoxfecha :codigo,:fechaInicio,:fechaFin,:apenom ", [
                         "codigo" => $codigo,
                         "fechaInicio" => $fechaInicio,
                         "fechaFin" => $fechaFin,
                         "apenom" => '%' . $apenom . '%'
                     ]);
                 } else {
-                    $resultados = DB::select("exec dbo.web_ordenesxcodigomedicoxapenom :codigo,'%'", [
+                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigomedicoxapenom :codigo,'%'", [
                         "codigo" => $codigo
                     ]);
                 }
                 break;
             case 'empresa':
                 if (!empty($apenom) && (empty($fechaInicio) && empty($fechaFin))) {
-                    $resultados = DB::select("exec dbo.web_ordenesxcodigociaxapenom :codigo,:apenom ", [
+                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigociaxapenom :codigo,:apenom ", [
                         "codigo" => $codigo,
                         "apenom" => '%' . $apenom . '%'
                     ]);
                 } elseif (!empty($apenom) && (!empty($fechaInicio) || !empty($fechaFin))) {
-                    $resultados = DB::select("exec dbo.web_ordenesxcodigociaxfecha :codigo,:fechaInicio,:fechaFin,:apenom ", [
+                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigociaxfecha :codigo,:fechaInicio,:fechaFin,:apenom ", [
                         "codigo" => $codigo,
                         "fechaInicio" => $fechaInicio,
                         "fechaFin" => $fechaFin,
                         "apenom" => '%' . $apenom . '%'
                     ]);
                 } else {
-                    $resultados = DB::select("exec dbo.web_ordenesxcodigocia :codigo", [
+                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigocia :codigo", [
                         "codigo" => $codigo
                     ]);
                 }

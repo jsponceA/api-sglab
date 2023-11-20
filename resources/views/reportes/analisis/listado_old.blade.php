@@ -4,14 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>RESULTADO DE ANALISIS - {{$ticket}}</title>
     <style>
-        @font-face {
-            font-family: 'Arial MT';
-            src: url('{{ public_path("fonts/arialmt.ttf") }}') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-        }
         *{
-            font-family: 'Arial MT', serif;
+            font-family: Arial, serif;
             margin-top: 5px !important;
             margin-bottom: 5px !important;
 
@@ -60,17 +54,22 @@
         </div>
     </div>
     <div style="width: 100%;margin-top: 10px">
-        <table border="0" cellpadding="0" style="width: 100%;border-collapse: collapse;">
-
+        <table border="0" cellpadding="0" style="width: 100%;border: 2px solid black;border-collapse: collapse;">
             <tbody>
             <tr style="font-size: 14px">
-                <td style="border: 2px solid black;border-right: 0;padding: 3px"><b>ANALISIS</b></td>
-                <td style="border: 2px solid black;border-right: 0;border-left: 0;padding: 3px"><b>RESULTADO</b></td>
-                <td style="border: 2px solid black;border-right: 0;border-left: 0;padding: 3px"><b>UNIDAD</b></td>
-                <td style="border: 2px solid black;border-left: 0;padding: 3px"><b>VALORES DE REFERENCIA</b></td>
+                <td width="280px" style="padding: 5px"><b>ANALISIS</b></td>
+                <td style="padding: 5px"><b>RESULTADO</b></td>
+                <td style="padding: 5px"><b>UNIDAD</b></td>
+                <td style="text-align: center;padding: 5px"><b>VALORES DE REFERENCIA</b></td>
             </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="width: 100%;margin-top: 5px;">
+        <table border="0" cellpadding="0" style="width: 100%;" >
+            <tbody>
             <tr>
-                <td colspan="4" style="padding-top: 5px;padding-bottom: 5px"><b style="font-size: 19px">{{$key}}</b></td>
+                <td colspan="4"><b style="font-size: 19px">{{$key}}</b></td>
             </tr>
             @foreach($groupAnalisis as $an)
                 <tr style="font-size: 14px">
@@ -81,12 +80,12 @@
                             {{$an->nombreexamen}}
                         @endif
                     </td>
-                    <td width="100px">{{$an->resultado}}</td>
-                    <td width="90px">{{$an->unidad}}</td>
-                    <td>
+                    <td width="100px" style="text-align: center">{{$an->resultado}}</td>
+                    <td width="90px" style="text-align: center">{{$an->unidad}}</td>
+                    <td >
                         <p style="margin: 0"{{$an->val_min.$an->resultado.$an->val_max}}></p>
                         @if(!empty($an->referencia))
-                            <p style="margin:0;font-size: 13px">{!! nl2br($an->referencia) !!}</p>
+                            <p style="margin: 10px 0 0;font-size: 13px">{!! nl2br($an->referencia) !!}</p>
                         @endif
                     </td>
                 </tr>
@@ -96,7 +95,6 @@
             </tbody>
         </table>
     </div>
-
 
     <div style="width: 100%;position: absolute;bottom: 0">
         <div style="text-align: right">
