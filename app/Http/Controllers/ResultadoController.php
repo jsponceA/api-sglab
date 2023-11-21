@@ -109,7 +109,14 @@ class ResultadoController extends Controller
         $analisis = collect($queryAnalisis)->groupBy(function ($item) {
             return $item->grupo;
         });
-        $pdf = Pdf::loadView('reportes.analisis.listado', compact("resultado", "analisis", "ticket","usuario","tipoUsuario","cabecera"));
+
+        if ($tipoUsuario == "empresa" && $cabecera == 1){
+            $vista = "reportes.analisis.listado_empresa";
+        }else{
+            $vista = "reportes.analisis.listado";
+        }
+
+        $pdf = Pdf::loadView($vista, compact("resultado", "analisis", "ticket","usuario","tipoUsuario","cabecera"));
         return $pdf->download('reporte_analisis.pdf');
     }
 }

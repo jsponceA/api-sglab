@@ -32,14 +32,8 @@
 @foreach($analisis as $key => $groupAnalisis)
     <div style="width: 100%">
         <p style="margin: 0;text-align: right;font-size: 13px">Pag. {{$loop->iteration}}/{{$loop->count}}</p>
-        @if($tipoUsuario != "empresa")
-            <img src="{{asset('img/hoja-membretada-01_01.png')}}" style="width: 100%;height: 96px" alt="">
-            <hr style="color: #49B8E5;">
-        @elseif($tipoUsuario == "empresa" && $cabecera == 1)
-            <img src="{{asset('img/hoja-membretada-01_01.png')}}" style="width: 100%;height: 96px" alt="">
-            <hr style="color: #49B8E5;">
-        @endif
-
+        <img src="{{asset('img/hoja-membretada-01_01.png')}}" style="width: 100%;height: 96px" alt="">
+        <hr style="color: #49B8E5;">
     </div>
     <div style="width: 100%">
         <div style="border-radius: 10px;border:2px solid black;padding: 10px;font-size: 14px;">
@@ -122,13 +116,8 @@
         <div style="text-align: right">
             <img src="{{asset('img/firma_dr_rafael.png')}}" style="width: 200px;height: 103px;" alt="">
         </div>
-        @if($tipoUsuario != "empresa")
-            <hr style="color: #49B8E5">
-            <img src="{{asset('img/hoja-membretada-01_07.png')}}" style="width: 100%;" alt="">
-        @elseif($tipoUsuario == "empresa" && $cabecera == 1)
-            <hr style="color: #49B8E5">
-            <img src="{{asset('img/hoja-membretada-01_07.png')}}" style="width: 100%;" alt="">
-        @endif
+        <hr style="color: #49B8E5">
+        <img src="{{asset('img/hoja-membretada-01_07.png')}}" style="width: 100%;" alt="">
     </div>
     @if(!$loop->last)
         <div class="page-break"></div>
