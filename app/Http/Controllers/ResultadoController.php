@@ -86,6 +86,7 @@ class ResultadoController extends Controller
         $ticket = $request->input("ticket");
         $resultado = (object)$request->input("resultado");
         $usuario = $request->input("usuario");
+        $cabecera = $request->input("cabecera");
 
         $dataQuery = [
             "ticket" => $ticket
@@ -108,7 +109,7 @@ class ResultadoController extends Controller
         $analisis = collect($queryAnalisis)->groupBy(function ($item) {
             return $item->grupo;
         });
-        $pdf = Pdf::loadView('reportes.analisis.listado', compact("resultado", "analisis", "ticket","usuario","tipoUsuario"));
+        $pdf = Pdf::loadView('reportes.analisis.listado', compact("resultado", "analisis", "ticket","usuario","tipoUsuario","cabecera"));
         return $pdf->download('reporte_analisis.pdf');
     }
 }
