@@ -8,7 +8,7 @@
 <table>
     <tbody>
     <tr>
-{{--        <td style="border: 2px solid black;background: #659eca;color: white">ESTADO</td>--}}
+        <td style="border: 2px solid black;background: #659eca;color: white">ESTADO</td>
         <td style="border: 2px solid black;background: #659eca;color: white">ORDEN</td>
         <td style="border: 2px solid black;background: #659eca;color: white">FECHA MUESTRA</td>
         <td style="border: 2px solid black;background: #659eca;color: white">PROFESIONAL</td>
@@ -17,7 +17,17 @@
     </tr>
    @foreach($resultados as $r)
        <tr>
-{{--           <td>Iniciado</td>--}}
+           <td>
+               @if($r->estado == 1)
+                   Iniciando
+               @elseif($r->estado == 2)
+                   En proceso
+               @elseif($r->estado == 3)
+                   Finalizado
+               @else
+                   -
+               @endif
+           </td>
            <td>{{$r->ticket}}</td>
            <td>{{!empty($r->fecha) ? now()->parse($r->fecha)->format("d/m/Y") : "" }}</td>
            <td>{{$r->profesional}}</td>

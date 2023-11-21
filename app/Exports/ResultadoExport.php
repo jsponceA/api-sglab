@@ -25,44 +25,46 @@ class ResultadoExport implements FromView,ShouldAutoSize
         $tipoUsuario = $this->params?->tipoUsuario;
         $codigo = $this->params?->codigo;
 
-        switch ($tipoUsuario){
+        switch ($tipoUsuario) {
             case 'paciente':
-                $resultados = DB::select("exec dbo.web_ordenesxcodigopaciente :codigo",[
+                $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigopaciente :codigo", [
                     "codigo" => $codigo
                 ]);
                 break;
             case 'medico':
-                if (!empty($apenom)){
-                    $resultados = DB::select("exec dbo.web_ordenesxcodigomedicoxapenom :codigo,:apenom ",[
+                if (!empty($apenom) && (empty($fechaInicio) && empty($fechaFin))) {
+                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigomedicoxapenom :codigo,:apenom ", [
                         "codigo" => $codigo,
-                        "apenom" => '%'.$apenom.'%'
+                        "apenom" => '%' . $apenom . '%'
                     ]);
-                }elseif(!empty($fechaInicio) || !empty($fechaFin)){
-                    $resultados = DB::select("exec dbo.web_ordenesxcodigomedicoxfecha :codigo,:fechaInicio,:fechaFin ",[
+                } elseif (!empty($fechaInicio) || !empty($fechaFin)) {
+                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigomedicoxfecha :codigo,:fechaInicio,:fechaFin,:apenom ", [
                         "codigo" => $codigo,
                         "fechaInicio" => $fechaInicio,
-                        "fechaFin" => $fechaFin
+                        "fechaFin" => $fechaFin,
+                        "apenom" => !empty($apenom) ? ('%' . $apenom . '%') : '%'
                     ]);
-                }else{
-                    $resultados = DB::select("exec dbo.web_ordenesxcodigomedicoxapenom :codigo,'%'",[
+                } else {
+                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigomedicoxapenom :codigo,'%'", [
                         "codigo" => $codigo
                     ]);
                 }
                 break;
             case 'empresa':
-                if (!empty($apenom)){
-                    $resultados = DB::select("exec dbo.web_ordenesxcodigociaxapenom :codigo,:apenom ",[
+                if (!empty($apenom) && (empty($fechaInicio) && empty($fechaFin))) {
+                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigociaxapenom :codigo,:apenom ", [
                         "codigo" => $codigo,
-                        "apenom" => '%'.$apenom.'%'
+                        "apenom" => '%' . $apenom . '%'
                     ]);
-                }elseif(!empty($fechaInicio) || !empty($fechaFin)){
-                    $resultados = DB::select("exec dbo.dbo.web_ordenesxcodigociaxfecha :codigo,:fechaInicio,:fechaFin ",[
+                } elseif (!empty($fechaInicio) || !empty($fechaFin)) {
+                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigociaxfecha :codigo,:fechaInicio,:fechaFin,:apenom ", [
                         "codigo" => $codigo,
                         "fechaInicio" => $fechaInicio,
-                        "fechaFin" => $fechaFin
+                        "fechaFin" => $fechaFin,
+                        "apenom" => !empty($apenom) ? ('%' . $apenom . '%') : '%'
                     ]);
-                }else{
-                    $resultados = DB::select("exec dbo.web_ordenesxcodigocia :codigo,'%'",[
+                } else {
+                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigocia :codigo", [
                         "codigo" => $codigo
                     ]);
                 }
