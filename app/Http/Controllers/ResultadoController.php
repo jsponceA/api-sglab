@@ -110,7 +110,7 @@ class ResultadoController extends Controller
             return $item->grupo;
         });
 
-        if ($tipoUsuario == "empresa" && $cabecera == 1){
+        if ($tipoUsuario == "empresa" && $cabecera == 2){
             $vista = "reportes.analisis.listado_empresa";
         }else{
             $vista = "reportes.analisis.listado";
