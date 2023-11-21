@@ -31,6 +31,7 @@ class AuthController extends Controller
                 "apenom" => !empty($validarDatos->apenom) ? $validarDatos->apenom : $validarDatos->nombre,
                 "tipoUsuario" => $tipoUsuario,
                 "codigo" => $validarDatos->codigo,
+                "cabecera" => $validarDatos->cabecera ?? 2
             ];
 
             return response()->json([
