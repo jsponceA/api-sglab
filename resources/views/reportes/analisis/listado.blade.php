@@ -70,10 +70,10 @@
                 <td style="border: 2px solid black;border-left: 0;padding: 3px"><b>VALORES DE REFERENCIA</b></td>
             </tr>
             <tr>
-                <td colspan="4" style="padding-top: 5px;padding-bottom: 5px"><b style="font-size: 19px">{{$key}}</b></td>
+                <td colspan="4" style="padding-top: 5px;padding-bottom: 5px"><b style="font-size: 17px">{{$key}}</b></td>
             </tr>
             @foreach($groupAnalisis as $an)
-                <tr style="font-size: 14px">
+                <tr style="font-size: 13px">
                     <td width="270px">
                         @if($an->validadom == 0)
                             <b><i>{{$an->nombreexamen}}</i></b>
@@ -81,12 +81,16 @@
                             {{$an->nombreexamen}}
                         @endif
                     </td>
-                    <td width="100px">{{$an->resultado}}</td>
-                    <td width="90px">{{$an->unidad}}</td>
+                    <td width="100px">
+                        <p style="margin: 0;margin-left: 10px">{{$an->resultado}}</p>
+                    </td>
+                    <td width="90px">
+                        <p style="margin: 0;margin-left: 10px">{{$an->unidad}}</p>
+                    </td>
                     <td>
-                        <p style="margin: 0"{{$an->val_min.$an->resultado.$an->val_max}}></p>
+                        <p style="margin: 0;margin-left: 10px"{{$an->val_min.$an->resultado.$an->val_max}}></p>
                         @if(!empty($an->referencia))
-                            <p style="margin:0;font-size: 13px">{!! nl2br($an->referencia) !!}</p>
+                            <p style="margin:0;margin-left: 10px;font-size: 10px">{!! nl2br($an->referencia) !!}</p>
                         @endif
                     </td>
                 </tr>
@@ -100,7 +104,7 @@
 
     <div style="width: 100%;position: absolute;bottom: 0">
         <div style="text-align: right">
-            <img src="{{asset('img/firma_dr_rafael.png')}}" style="width: 260px;height: 103px;" alt="">
+            <img src="{{asset('img/firma_dr_rafael.png')}}" style="width: 200px;height: 103px;" alt="">
         </div>
         <hr style="color: #49B8E5">
         <img src="{{asset('img/hoja-membretada-01_07.png')}}" style="width: 100%;" alt="">
