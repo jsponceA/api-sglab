@@ -26,7 +26,10 @@ class ResultadoController extends Controller
                 $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigopaciente :codigo", [
                     "codigo" => $codigo
                 ]);
+                //filtro para pacientes
+                $resultados = collect($resultados)->filter(fn($item) => empty($item->cia))->values();
                 break;
+
             case 'medico':
                 if (!empty($apenom) && (empty($fechaInicio) && empty($fechaFin))) {
                     $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigomedicoxapenom :codigo,:apenom ", [
@@ -69,6 +72,7 @@ class ResultadoController extends Controller
                 $resultados = [];
                 break;
         }
+
 
         return response()->json([
             "resultados" => $resultados
