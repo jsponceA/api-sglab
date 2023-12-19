@@ -79,28 +79,31 @@
                 </td>
             </tr>
             @foreach($groupAnalisis as $an)
-                <tr style="font-size: 13px">
-                    <td width="270px">
-                        @if($an->validadom == 0)
-                            <b><i>{{$an->nombreexamen}}</i></b>
-                        @else
-                            {{$an->nombreexamen}}
-                        @endif
-                    </td>
-                    <td width="100px">
-                        <p style="margin: 0;margin-left: 10px">{{$an->resultado}}</p>
-                    </td>
-                    <td width="90px">
-                        <p style="margin: 0;margin-left: 10px">{{$an->unidad}}</p>
-                    </td>
-                    <td>
-                        <p style="margin: 0;margin-left: 10px"{{$an->val_min.$an->resultado.$an->val_max}}></p>
-                        @if(!empty($an->referencia))
-                            <p style="margin:0;margin-left: 10px;font-size: 10px">{!! nl2br($an->referencia) !!}</p>
-                        @endif
-                    </td>
-                </tr>
-
+                @if($an->perfil == $an->nombreexamen)
+                    <tr>
+                        <td colspan="4"><b style="font-size: 15px">{{$an->perfil}}</b></td>
+                    </tr>
+                @else
+                    @if(!empty($an->validadom))
+                        <tr style="font-size: 13px">
+                            <td style="vertical-align: top" width="270px">
+                                {{$an->nombreexamen}}
+                            </td>
+                            <td style="vertical-align: top" width="100px">
+                                <p style="margin: 0;margin-left: 10px">{{$an->resultado}}</p>
+                            </td>
+                            <td style="vertical-align: top" width="90px">
+                                <p style="margin: 0;margin-left: 10px">{{$an->unidad}}</p>
+                            </td>
+                            <td style="vertical-align: top">
+                                {{--<p style="margin: 0;margin-left: 10px">{{$an->val_min.$an->resultado.$an->val_max}}</p>--}}
+                                @if(!empty($an->referencia))
+                                    <p style="margin:0;margin-left: 10px;font-size: 10px;">{!! nl2br($an->referencia) !!}</p>
+                                @endif
+                            </td>
+                        </tr>
+                    @endif
+                @endif
             @endforeach
 
             </tbody>
