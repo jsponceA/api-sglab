@@ -89,13 +89,13 @@
                 @else
                     @if(!empty($an->validadom))
                         <tr style="font-size: 13px">
-                            <td style="vertical-align: top" width="270px">
+                            <td style="vertical-align: top" >
                                 {{$an->nombreexamen}}
                             </td>
-                            <td style="vertical-align: top" width="100px">
+                            <td style="vertical-align: top" >
                                 <p style="margin: 0;margin-left: 10px">{{$an->resultado}}</p>
                             </td>
-                            <td style="vertical-align: top" width="90px">
+                            <td style="vertical-align: top">
                                 <p style="margin: 0;margin-left: 10px">{{$an->unidad}}</p>
                             </td>
                             <td style="vertical-align: top">
