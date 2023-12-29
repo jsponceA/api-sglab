@@ -90,7 +90,11 @@
                                 {{$an->nombreexamen}}
                             </td>
                             <td style="vertical-align: top" >
-                                <p style="margin: 0;margin-left: 10px">{{$an->resultado}}</p>
+                                @if($an->resutexto)
+                                    <p style="margin: 0;margin-left: 10px">{{$an->texto}}</p>
+                                @else
+                                    <p style="margin: 0;margin-left: 10px">{{$an->resultado}}</p>
+                                @endif
                             </td>
                             <td style="vertical-align: top" >
                                 <p style="margin: 0;margin-left: 10px">{{$an->unidad}}</p>
