@@ -90,10 +90,20 @@
                                 {{$an->nombreexamen}}
                             </td>
                             <td style="vertical-align: top" >
-                                @if($an->resutexto)
+                                @if(!empty($an->resutexto))
                                     <p style="margin: 0;margin-left: 10px">{{$an->texto}}</p>
                                 @else
-                                    <p style="margin: 0;margin-left: 10px">{{$an->resultado}}</p>
+                                    <p style="margin: 0;margin-left: 10px">
+                                        @if($an->resultado == "I")
+                                            Intermedio
+                                        @elseif($an->resultado == "R")
+                                            Resistente
+                                        @elseif($an->resultado == "S")
+                                            Sensible
+                                        @else
+                                            {{$an->resultado}}
+                                        @endif
+                                    </p>
                                 @endif
                             </td>
                             <td style="vertical-align: top" >
