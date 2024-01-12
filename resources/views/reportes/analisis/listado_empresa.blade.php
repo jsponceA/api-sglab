@@ -79,9 +79,13 @@
                 </td>
             </tr>
             @foreach($groupAnalisis as $an)
-                @if($an->perfil == $an->nombreexamen)
+                @if($an->perfil == $an->nombreexamen && $an->tipo == 4)
                     <tr>
                         <td colspan="4"><b style="font-size: 15px">{{$an->perfil}}</b></td>
+                    </tr>
+                @elseif(empty($an->resultado) && empty($an->unidad) && empty($an->referencia) && $an->tipo == 3)
+                    <tr>
+                        <td colspan="4"><b style="font-size: 15px;font-style: italic">{{$an->nombreexamen}}</b></td>
                     </tr>
                 @else
                     @if(!empty($an->validadom))
@@ -110,7 +114,7 @@
                                 <p style="margin: 0;margin-left: 10px">{{$an->unidad}}</p>
                             </td>
                             <td style="vertical-align: top">
-                                {{--<p style="margin: 0;margin-left: 10px">{{$an->val_min.$an->resultado.$an->val_max}}</p>--}}
+                                <p style="margin: 0">{{$an->val_min.$an->separador.$an->val_max}}</p>
                                 @if(!empty($an->referencia))
                                     <p style="margin:0;margin-left: 10px;font-size: 10px;">{!! nl2br($an->referencia) !!}</p>
                                 @endif
