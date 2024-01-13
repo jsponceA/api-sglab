@@ -37,7 +37,7 @@
 
     </div>
     <div style="width: 100%">
-        <div style="border-radius: 10px;border:2px solid black;padding: 10px;font-size: 14px;">
+        <div style="border-radius: 10px;border:2px solid black;padding: 0;font-size: 14px;">
             <table border="0" cellpadding="1" style="width: 100%">
                 <tbody>
                 <tr>
@@ -65,7 +65,7 @@
         </div>
     </div>
     <div style="width: 100%;margin-top: 10px">
-        <table border="0" cellpadding="0" style="width: 100%;border-collapse: collapse;">
+        <table border="1" cellpadding="0" style="width: 100%;border-collapse: collapse;">
 
             <tbody>
             <tr style="font-size: 14px">
@@ -75,7 +75,7 @@
                 <td style="border: 2px solid black;border-left: 0;padding: 3px"><b>VALORES DE REFERENCIA</b></td>
             </tr>
             <tr>
-                <td colspan="4" style="padding-top: 5px;padding-bottom: 5px"><b style="font-size: 17px">{{$key}}</b>
+                <td colspan="4" style="padding-top:3px;padding-bottom: 3px"><b style="font-size: 17px">{{$key}}</b>
                 </td>
             </tr>
             @foreach($groupAnalisis as $an)
@@ -90,14 +90,14 @@
                 @else
                     @if(!empty($an->validadom))
                         <tr style="font-size: 13px">
-                            <td style="vertical-align: top">
+                            <td style="vertical-align: top;padding: 0" >
                                 {{$an->nombreexamen}}
                             </td>
-                            <td style="vertical-align: top" >
+                            <td style="vertical-align: top;padding: 0" >
                                 @if(!empty($an->resutexto))
-                                    <p style="margin: 0;margin-left: 10px">{{$an->texto}}</p>
+                                    <span style="margin: 0;margin-left: 10px">{{$an->texto}}</span>
                                 @else
-                                    <p style="margin: 0;margin-left: 10px">
+                                    <span style="margin: 0;margin-left: 10px">
                                         @if($an->resultado == "I")
                                             Intermedio
                                         @elseif($an->resultado == "R")
@@ -107,16 +107,18 @@
                                         @else
                                             {{$an->resultado}}
                                         @endif
-                                    </p>
+                                    </span>
                                 @endif
                             </td>
-                            <td style="vertical-align: top" >
-                                <p style="margin: 0;margin-left: 10px">{{$an->unidad}}</p>
+                            <td style="vertical-align: top">
+                                <span style="margin: 0;margin-left: 10px">{{$an->unidad}}</span>
                             </td>
                             <td style="vertical-align: top">
-                                <p style="margin: 0">{{$an->val_min.$an->separador.$an->val_max}}</p>
+                                @if(!empty($an->val_min) || !empty($an->val_max))
+                                    <span style="margin: 0">{{$an->val_min.$an->separador.$an->val_max}}</span>
+                                @endif
                                 @if(!empty($an->referencia))
-                                    <p style="margin:0;margin-left: 10px;font-size: 10px;">{!! nl2br($an->referencia) !!}</p>
+                                    <span style="margin:0;font-size: 10px;">{!! nl2br($an->referencia) !!}</span>
                                 @endif
                             </td>
                         </tr>
@@ -131,10 +133,9 @@
 
     <div style="width: 100%;position: absolute;bottom: 0">
         <div style="text-align: right">
-            <img src="{{asset('img/firma_dr_rafael.png')}}" style="width: 200px;height: 103px" alt="">
+            <img src="{{asset('img/firma_dr_rafael.png')}}" style="width: 200px;height:90px;" alt="">
         </div>
-        <hr style="color: #49B8E5;visibility: hidden ">
-        <img src="{{asset('img/hoja-membretada-01_07.png')}}" style="width: 100%;visibility: hidden" alt="">
+        <img src="{{asset('img/pie-de-pagina.png')}}" style="width: 100%;" alt="">
     </div>
     @if(!$loop->last)
         <div class="page-break"></div>
