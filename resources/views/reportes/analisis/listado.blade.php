@@ -69,7 +69,7 @@
         </div>
     </div>
     <div style="width: 100%;margin-top: 10px;">
-        <table border="1" cellpadding="0" style="width: 100%;border-collapse: collapse;">
+        <table border="0" cellpadding="0" style="width: 100%;border-collapse: collapse;">
             <tbody>
             <tr style="font-size: 14px">
                 <td style="border: 2px solid black;border-right: 0;padding: 3px"><b>ANALISIS</b></td>
@@ -96,7 +96,13 @@
                             <td style="vertical-align: top;padding: 0" >
                                 {{$an->nombreexamen}}
                             </td>
-                            <td style="vertical-align: top;padding: 0" colspan="{{empty(trim($an->unidad)) && (empty(trim($an->referencia)) || (empty(trim($an->val_min)) || empty(trim($an->val_max)))) ? '3' : '1'}}">
+                            @if(empty(trim($an->unidad)) && (!empty(trim($an->referencia)) || (!empty(trim($an->val_min)) || !empty(trim($an->val_max)))))
+                                <td style="vertical-align: top;padding: 0" colspan="2">
+                            @elseif(empty(trim($an->unidad)) && (empty(trim($an->referencia)) || (empty(trim($an->val_min)) || empty(trim($an->val_max)))))
+                                <td style="vertical-align: top;padding: 0" colspan="3">
+                            @else
+                                <td style="vertical-align: top;padding: 0" >
+                            @endif
                                @if(!empty($an->resutexto))
                                     <span style="margin: 0;margin-left: 10px">{{$an->texto}}</span>
                                @else
@@ -113,7 +119,7 @@
                                     </span>
                                @endif
                             </td>
-                            @if(!empty(trim($an->unidad)))
+                            @if(!empty(trim($an->unidad)) )
                                 <td style="vertical-align: top">
                                     <span style="margin: 0;margin-left: 10px">{{$an->unidad}}</span>
                                 </td>
