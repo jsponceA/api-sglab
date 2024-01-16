@@ -86,7 +86,7 @@
                     <tr>
                         <td colspan="4"><b style="font-size: 15px">{{$an->perfil}}</b></td>
                     </tr>
-                @elseif(empty($an->resultado) && empty($an->unidad) && empty($an->referencia) && $an->tipo == 3)
+                @elseif(empty(trim($an->resultado)) && empty(trim($an->unidad)) && empty(trim($an->referencia)) && $an->tipo == 3)
                     <tr>
                         <td colspan="4"><b style="font-size: 15px;font-style: italic">{{$an->nombreexamen}}</b></td>
                     </tr>
@@ -103,7 +103,7 @@
                             @else
                                 <td style="vertical-align: top;padding: 0" >
                             @endif
-                               @if(!empty($an->resutexto))
+                               @if(!empty(trim($an->resutexto)))
                                     <span style="margin: 0;margin-left: 10px">{{$an->texto}}</span>
                                @else
                                     <span style="margin: 0;margin-left: 10px">
@@ -135,6 +135,11 @@
                                 </td>
                             @endif
                         </tr>
+                       @if(!empty(trim($an->comentario)))
+                           <tr>
+                               <td colspan="4"><span style="margin:0;margin-left:4px;font-size: 12px;">{{$an->comentario}}</span></td>
+                           </tr>
+                       @endif
                     @endif
                 @endif
             @endforeach
