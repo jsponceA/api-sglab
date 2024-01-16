@@ -137,7 +137,7 @@
                         </tr>
                        @if(!empty(trim($an->comentario)))
                            <tr>
-                               <td colspan="4"><span style="margin:0;margin-left:4px;font-size: 12px;">{{$an->comentario}}</span></td>
+                               <td colspan="4"><span style="margin:0;margin-left:4px;font-size: 13px;">{{$an->comentario}}</span></td>
                            </tr>
                        @endif
                     @endif
