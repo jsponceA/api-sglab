@@ -38,9 +38,6 @@
 </div>
 
 <div style="width: 100%;position: absolute;bottom: 0">
-    <div style="text-align: right">
-        <img src="{{asset('img/firma_dr_rafael.png')}}" style="width: 200px;height:90px;" alt="">
-    </div>
     <img src="{{$empresa->imagen_pie_pagina_url}}" style="width: 100%;" alt="">
 </div>
 </body>
