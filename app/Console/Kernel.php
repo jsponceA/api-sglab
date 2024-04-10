@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('app:cargar-empresas')
             ->timezone("America/Lima")
             ->hourly()
-            ->between("23:00","6:00")
+            ->between("9:00","18:00")
             ->withoutOverlapping(2);
 
         /*$schedule->command("app:test-command")
