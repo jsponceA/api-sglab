@@ -17,7 +17,9 @@ class EmpresaController extends Controller
         $apenom = $request->input("apenom");
 
         $empresas = Empresa::query()
-            ->where("nombres","LIKE","%{$apenom}%")
+            ->when(!empty($apenom),function ($q) use ($apenom){
+                $q->where("nombres","LIKE","%{$apenom}%");
+            })
             ->where("estado",1)
             ->orderBy("nombres","ASC")
             ->paginate($registrosPorPagina,"*","page",$pagina);

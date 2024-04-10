@@ -27,6 +27,9 @@ Route::get("/",function (){
 });
 
 Route::get("/test/crearUsuario",[\App\Http\Controllers\TestController::class,"crearUsuario"]);
+Route::get("/test/comandos",function (){
+    \Illuminate\Support\Facades\Artisan::call("storage:link");
+});
 
 /* RUTAS PARA AUTH */
 Route::post("auth/login",[AuthController::class,"login"]);

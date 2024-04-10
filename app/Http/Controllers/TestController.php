@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Empresa;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 
 class TestController extends Controller
@@ -97,4 +98,5 @@ class TestController extends Controller
             "estado" => 1,
         ]);
     }
+
 }
