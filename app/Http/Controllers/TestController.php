@@ -76,15 +76,19 @@ class TestController extends Controller
 
     public function crearEmpresa()
     {
-        $query = DB::select("SET NOCOUNT ON; EXEC web_listaempresas");
+        $actualesEmpresas = Empresa::query()->pluck("codigo")->toArray();
+        $todasLasEmpresas = DB::select("SET NOCOUNT ON; EXEC web_listaempresas");
+        $nuevasEmpresas = collect($todasLasEmpresas)->whereNotIn("codigo",$actualesEmpresas);
 
-        foreach ($query as $item) {
+        foreach ($nuevasEmpresas as $nuevaEmpresa) {
             Empresa::query()->create([
-                "codigo" => $item->codigo,
-                "nombres" => trim($item->nombre),
+                "codigo" => $nuevaEmpresa->codigo,
+                "nombres" => trim($nuevaEmpresa->nombre),
                 "estado" => 1
             ]);
         }
+
+        dd($nuevasEmpresas);
     }
 
     public function crearUsuario()

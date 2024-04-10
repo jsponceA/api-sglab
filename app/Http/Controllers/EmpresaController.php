@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Empresa;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -66,5 +67,24 @@ class EmpresaController extends Controller
 
         $pdf = Pdf::loadView("reportes.analisis.previsualizar_empresa", compact("empresa"));
         return $pdf->stream('previsualizar.pdf');
+    }
+
+    public function sincronizarNuevasEmpresas()
+    {
+        $actualesEmpresas = Empresa::query()->pluck("codigo")->toArray();
+        $todasLasEmpresas = DB::select("SET NOCOUNT ON; EXEC web_listaempresas");
+        $nuevasEmpresas = collect($todasLasEmpresas)->whereNotIn("codigo",$actualesEmpresas);
+
+        foreach ($nuevasEmpresas as $nuevaEmpresa) {
+            Empresa::query()->create([
+                "codigo" => $nuevaEmpresa->codigo,
+                "nombres" => trim($nuevaEmpresa->nombre),
+                "estado" => 1
+            ]);
+        }
+
+        return response()->json([
+            "message" => "Registros nuevos ingresados: {$nuevasEmpresas->count()}"
+        ],Response::HTTP_OK);
     }
 }

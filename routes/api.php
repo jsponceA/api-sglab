@@ -26,7 +26,7 @@ Route::get("/",function (){
     ],Response::HTTP_OK);
 });
 
-Route::get("/test/crearUsuario",[\App\Http\Controllers\TestController::class,"crearUsuario"]);
+Route::get("/test/crearEmpresa",[\App\Http\Controllers\TestController::class,"crearEmpresa"]);
 Route::get("/test/comandos",function (){
     \Illuminate\Support\Facades\Artisan::call("storage:link");
 });
@@ -52,6 +52,7 @@ Route::apiResource("resultados",ResultadoController::class);
 /* FIN DE RUTAS PARA RESULTADOS */
 
 /* RUTAS PARA EMPRESAS */
+Route::post("empresas/sincronizarNuevasEmpresas",[EmpresaController::class,'sincronizarNuevasEmpresas']);
 Route::post("empresas/previsualizarPdf",[EmpresaController::class,'previsualizarPdf']);
 Route::apiResource("empresas",EmpresaController::class);
 /* FIN DE RUTAS PARA EMPRESAS */
