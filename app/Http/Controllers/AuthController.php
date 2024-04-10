@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Models\Empresa;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -26,12 +27,15 @@ class AuthController extends Controller
 
         if (!empty($validarDatos->codigo)){
 
+            $empresa = Empresa::query()->where("codigo",$validarDatos->codigo)->first();
+
             $usuarioData = [
                 "usuario" => $usuario,
                 "apenom" => !empty($validarDatos->apenom) ? $validarDatos->apenom : $validarDatos->nombre,
                 "tipoUsuario" => $tipoUsuario,
                 "codigo" => $validarDatos->codigo,
-                "cabecera" => $validarDatos->cabecera ?? 2
+                "cabecera" => $validarDatos->cabecera ?? 2,
+                "datosEmpresa" => $empresa
             ];
 
             return response()->json([

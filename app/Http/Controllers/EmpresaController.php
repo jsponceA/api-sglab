@@ -19,7 +19,9 @@ class EmpresaController extends Controller
 
         $empresas = Empresa::query()
             ->when(!empty($apenom),function ($q) use ($apenom){
-                $q->where("nombres","LIKE","%{$apenom}%");
+                $q
+                    ->where("nombres","LIKE","%{$apenom}%")
+                    ->orWhere("codigo","LIKE","%{$apenom}%");
             })
             ->where("estado",1)
             ->orderBy("nombres","ASC")
@@ -41,6 +43,11 @@ class EmpresaController extends Controller
 
     public function update(Request $request,$id)
     {
+        $request->validate([
+            "imagen_cabecera" => "nullable|image|mimes:jpg,jpeg,png",
+            "imagen_pie_pagina" => "nullable|image|mimes:jpg,jpeg,png"
+        ]);
+
         $empresa = Empresa::query()->findOrFail($id);
         if ($request->hasFile("imagen_cabecera")){
             Storage::delete("empresas/{$empresa->imagen_cabecera}");
@@ -85,6 +92,29 @@ class EmpresaController extends Controller
 
         return response()->json([
             "message" => "Registros nuevos ingresados: {$nuevasEmpresas->count()}"
+        ],Response::HTTP_OK);
+    }
+
+    public function eliminarImagen(Request $request,$id)
+    {
+
+        $nombreCampo = $request->input("nombreCampo");
+        $empresa = Empresa::query()->findOrFail($id);
+
+        if ($nombreCampo == "imagen_cabecera"){
+            Storage::delete("empresas/{$empresa->imagen_cabecera}");
+            $empresa->imagen_cabecera = null;
+        }
+
+        if ($nombreCampo == "imagen_pie_pagina"){
+            Storage::delete("empresas/{$empresa->imagen_pie_pagina}");
+            $empresa->imagen_pie_pagina = null;
+        }
+
+        $empresa->update();
+
+        return response()->json([
+            "message" => "Se actualizaron los datos correctamente"
         ],Response::HTTP_OK);
     }
 }
