@@ -26,11 +26,11 @@ return new class extends Migration
         });
 
         \App\Models\User::query()->create([
-            "usuario" => "ltasayco",
+            "usuario" => "admin",
             "clave" => bcrypt(123456),
-            "nombres" => "luis fernando",
-            "apellidos" => "tasayco tuanama",
-            "correo" => "luist@gmail.com",
+            "nombres" => "admin",
+            "apellidos" => "admin",
+            "correo" => "admin@gmail.com",
             "estado" => 1,
         ]);
     }

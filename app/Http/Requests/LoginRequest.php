@@ -17,7 +17,7 @@ class LoginRequest extends FormRequest
         return [
             "usuario" => ["required","max:255"],
             "clave" => ["required","max:255"],
-            "tipoUsuario" => ["required","in:paciente,medico,empresa"]
+            "tipoUsuario" => ["required","in:paciente,medico,empresa,administrador"]
         ];
     }
 }

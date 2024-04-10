@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('archivos', function (Blueprint $table) {
+        Schema::create('empresas', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger("usuario_id");
-            $table->string('archivo',255);
+            $table->string("codigo",50)->unique();
+            $table->string("nombres",255)->nullable();
+            $table->string("imagen_cabecera",255)->nullable();
+            $table->string("imagen_pie_pagina",255)->nullable();
+            $table->boolean("estado")->default(0)->nullable();
             $table->datetimes();
-            $table->softDeletesDatetime();
-
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('archivos');
+        Schema::dropIfExists('empresas');
     }
 };

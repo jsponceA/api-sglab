@@ -32,8 +32,13 @@
 @foreach($analisis as $key => $groupAnalisis)
     <div style="width: 100%">
         <p style="margin: 0;text-align: right;font-size: 13px">Pag. {{$loop->iteration}}/{{$loop->count}}</p>
-        <img src="{{asset('img/hoja-membretada-01_01.png')}}" style="width: 100%;height: 96px;visibility: hidden" alt="">
-        <hr style="color: #49B8E5;visibility: hidden">
+        @if(!empty($empresa) && !empty($empresa->imagen_cabecera) && $tipoImagen == "tulogo")
+            <img src="{{$empresa->imagen_cabecera_url}}" style="width: 100%;height: 90px" alt="">
+        @else
+            <img src="{{asset('img/hoja-membretada-01_01.png')}}" style="width: 100%;height: 96px;visibility: hidden" alt="">
+            <hr style="color: #49B8E5;visibility: hidden">
+        @endif
+
 
     </div>
     <div style="width: 100%">
@@ -148,7 +153,11 @@
         <div style="text-align: right">
             <img src="{{asset('img/firma_dr_rafael.png')}}" style="width: 200px;height:90px;" alt="">
         </div>
-        <img src="{{asset('img/pie-de-pagina.png')}}" style="width: 100%;" alt="">
+        @if(!empty($empresa) && !empty($empresa->imagen_pie_pagina) && $tipoImagen == "tulogo")
+            <img src="{{$empresa->imagen_pie_pagina_url}}" style="width: 100%;" alt="">
+        @else
+            <img src="{{asset('img/pie-de-pagina.png')}}" style="width: 100%;" alt="">
+        @endif
     </div>
     @if(!$loop->last)
         <div class="page-break"></div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ResultadoExport;
+use App\Models\Empresa;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -91,6 +92,8 @@ class ResultadoController extends Controller
         $resultado = (object)$request->input("resultado");
         $usuario = $request->input("usuario");
         $cabecera = $request->input("cabecera");
+        $codigoEmpresa = $request->input("codigoEmpresa");
+        $tipoImagen = $request->input("tipoImagen");
 
         $dataQuery = [
             "ticket" => $ticket
@@ -120,7 +123,9 @@ class ResultadoController extends Controller
             $vista = "reportes.analisis.listado";
         }
 
-        $pdf = Pdf::loadView($vista, compact("resultado", "analisis", "ticket","usuario","tipoUsuario","cabecera"));
+        $empresa = Empresa::query()->where("codigo",$codigoEmpresa)->first();
+
+        $pdf = Pdf::loadView($vista, compact("resultado", "analisis", "ticket","usuario","tipoUsuario","cabecera","empresa","tipoImagen"));
         return $pdf->download('reporte_analisis.pdf');
     }
 }

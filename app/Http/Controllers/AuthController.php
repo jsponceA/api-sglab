@@ -63,6 +63,19 @@ class AuthController extends Controller
             case 'empresa':
                 $query = DB::selectOne("exec dbo.web_buscaempresaxcodigo :usuario, :clave",$dataLogin);
                 break;
+            case 'administrador':
+                $query = User::query()
+                    ->select("*",DB::raw("id AS codigo,CONCAT(apellidos,' ',nombres) AS apenom"))
+                    ->where("usuario",$dataLogin["usuario"])
+                    ->first();
+
+                if (!empty($query)){
+                    if (!Hash::check($dataLogin["clave"],$query->clave)){
+                        $query = null;
+                    }
+                }
+
+                break;
             default:
                 $query = null;
                 break;

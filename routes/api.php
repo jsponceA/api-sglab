@@ -1,12 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CargaArchivoController;
-use App\Http\Controllers\GraficoController;
+use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\ResultadoController;
 use App\Http\Controllers\UsuarioController;
-use App\Http\Controllers\VentaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,11 +26,7 @@ Route::get("/",function (){
     ],Response::HTTP_OK);
 });
 
-Route::get("/test/agruparAnalisis",[\App\Http\Controllers\TestController::class,"agruparAnalisis"]);
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get("/test/crearUsuario",[\App\Http\Controllers\TestController::class,"crearUsuario"]);
 
 /* RUTAS PARA AUTH */
 Route::post("auth/login",[AuthController::class,"login"]);
@@ -48,11 +42,17 @@ Route::apiResource("perfil",PerfilController::class);
 Route::apiResource("usuarios",UsuarioController::class);
 /* FIN DE RUTAS PARA USUARIOS */
 
-/* RUTAS PARA USUARIOS */
+/* RUTAS PARA RESULTADOS */
 Route::post("resultados/generarExcelResultados",[ResultadoController::class,'generarExcelResultados']);
 Route::post("resultados/generarPdfResultadoAnalisis",[ResultadoController::class,'generarPdfResultadoAnalisis']);
 Route::apiResource("resultados",ResultadoController::class);
-/* FIN DE RUTAS PARA USUARIOS */
+/* FIN DE RUTAS PARA RESULTADOS */
+
+/* RUTAS PARA EMPRESAS */
+Route::post("empresas/previsualizarPdf",[EmpresaController::class,'previsualizarPdf']);
+Route::apiResource("empresas",EmpresaController::class);
+/* FIN DE RUTAS PARA EMPRESAS */
+
 
 
 Route::fallback(function (){

@@ -11,6 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, SoftDeletes;
+    protected $connection = "mysql";
     protected $table = "usuarios";
     protected $primaryKey = "id";
 
@@ -22,15 +23,6 @@ class User extends Authenticatable
         "correo",
         "foto",
         "estado",
-    ];
-
-    protected $hidden = [
-        'clave',
-        'remember_token',
-    ];
-
-    protected $casts = [
-        'clave' => 'hashed',
     ];
 
     protected $appends = [

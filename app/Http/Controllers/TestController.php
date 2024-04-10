@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Empresa;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -69,5 +71,30 @@ class TestController extends Controller
             return $item->grupo;
         });
         dd($analisis);
+    }
+
+    public function crearEmpresa()
+    {
+        $query = DB::select("SET NOCOUNT ON; EXEC web_listaempresas");
+
+        foreach ($query as $item) {
+            Empresa::query()->create([
+                "codigo" => $item->codigo,
+                "nombres" => trim($item->nombre),
+                "estado" => 1
+            ]);
+        }
+    }
+
+    public function crearUsuario()
+    {
+        User::query()->create([
+            "usuario" => "admin",
+            "clave" => bcrypt(123456),
+            "nombres" => "admin",
+            "apellidos" => "admin",
+            "correo" => "admin@gmail.com",
+            "estado" => 1,
+        ]);
     }
 }
