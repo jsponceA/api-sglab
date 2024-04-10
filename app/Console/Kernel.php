@@ -14,12 +14,13 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('app:cargar-empresas')
             ->timezone("America/Lima")
-            ->between("00:00","5:00")
-            ->withoutOverlapping(1);
+            ->hourly()
+            ->between("23:00","6:00")
+            ->withoutOverlapping(2);
 
-        $schedule->command("app:test-command")
+        /*$schedule->command("app:test-command")
             ->timezone("America/Lima")
-            ->everySecond();
+            ->everySecond();*/
     }
 
     /**

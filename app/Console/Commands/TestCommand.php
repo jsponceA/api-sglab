@@ -26,7 +26,7 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        DB::table("test")->insert([
+        DB::connection("mysql")->table("test")->insert([
             "nombre" => "test",
             "fecha_hora" => now()->format("Y-m-d H:i:s")
         ]);
