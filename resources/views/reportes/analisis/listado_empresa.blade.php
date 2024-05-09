@@ -35,7 +35,9 @@
         @if(!empty($empresa) && !empty($empresa->imagen_cabecera) && $tipoImagen == "tulogo")
             <img src="{{$empresa->imagen_cabecera_url}}" style="width: 100%;height: 90px" alt="">
         @else
-            <img src="{{asset('img/hoja-membretada-01_01.png')}}" style="width: 100%;height: 96px;visibility: hidden" alt="">
+            @if($cabecera == 1)
+                <img src="{{asset('img/hoja-membretada-01_01.png')}}" style="width: 100%;height: 96px;visibility: hidden" alt="">
+            @endif
             <hr style="color: #49B8E5;visibility: hidden">
         @endif
 
@@ -152,12 +154,17 @@
     <div style="width: 100%;position: absolute;bottom: 0">
 
         @if(!empty($empresa) && !empty($empresa->imagen_pie_pagina) && $tipoImagen == "tulogo")
+         <div style="text-align: right">
+                <img src="{{asset('img/firma_dr_rafael.png')}}" style="width: 200px;height:90px;" alt="">
+            </div>
             <img src="{{$empresa->imagen_pie_pagina_url}}" style="width: 100%;" alt="">
         @else
             <div style="text-align: right">
                 <img src="{{asset('img/firma_dr_rafael.png')}}" style="width: 200px;height:90px;" alt="">
             </div>
-            <img src="{{asset('img/pie-de-pagina.png')}}" style="width: 100%;" alt="">
+            @if($cabecera == 1)
+                <img src="{{asset('img/pie-de-pagina.png')}}" style="width: 100%;" alt="">
+            @endif
         @endif
     </div>
     @if(!$loop->last)

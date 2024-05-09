@@ -155,6 +155,9 @@
 
     <div style="width: 100%;position: absolute;bottom: 0">
         @if(!empty($empresa) && !empty($empresa->imagen_pie_pagina) && $tipoImagen == "tulogo")
+        <div style="text-align: right">
+                <img src="{{asset('img/firma_dr_rafael.png')}}" style="width: 200px;height:90px;" alt="">
+            </div>
             <img src="{{$empresa->imagen_pie_pagina_url}}" style="width: 100%;" alt="">
         @else
             <div style="text-align: right">

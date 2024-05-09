@@ -29,6 +29,7 @@ class AuthController extends Controller
 
             $empresa = Empresa::query()->where("codigo",$validarDatos->codigo)->first();
 
+            //el valor cabecera es 1 con cabecera y 2 sin cabecera
             $usuarioData = [
                 "usuario" => $usuario,
                 "apenom" => !empty($validarDatos->apenom) ? $validarDatos->apenom : $validarDatos->nombre,
