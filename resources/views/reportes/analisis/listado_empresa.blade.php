@@ -36,9 +36,10 @@
             <img src="{{$empresa->imagen_cabecera_url}}" style="width: 100%;height: 90px" alt="">
         @else
             @if($cabecera == 1)
+                <img src="{{asset('img/hoja-membretada-01_01.png')}}" style="width: 100%;height: 96px" alt="">
+            @else
                 <img src="{{asset('img/hoja-membretada-01_01.png')}}" style="width: 100%;height: 96px;visibility: hidden" alt="">
             @endif
-            <hr style="color: #49B8E5;visibility: hidden">
         @endif
 
 
@@ -164,6 +165,8 @@
             </div>
             @if($cabecera == 1)
                 <img src="{{asset('img/pie-de-pagina.png')}}" style="width: 100%;" alt="">
+            @else
+                <img src="{{asset('img/pie-de-pagina.png')}}" style="width: 100%;visibility: hidden" alt="">
             @endif
         @endif
     </div>
