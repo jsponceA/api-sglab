@@ -32,7 +32,16 @@
            <td>{{!empty($r->fecha) ? now()->parse($r->fecha)->format("d/m/Y") : "" }}</td>
            <td>{{$r->profesional}}</td>
            <td>{{$r->apenom}}</td>
-           <td>{{$r->edad}}</td>
+           <td>
+               {{$r->edad}}
+               @if($r->medida == 1)
+                   Dias
+               @elseif($r->medida == 2)
+                   Años
+               @elseif($r->medida == 3)
+                   Meses
+               @endif
+           </td>
        </tr>
    @endforeach
     </tbody>

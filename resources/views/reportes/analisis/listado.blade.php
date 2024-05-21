@@ -66,7 +66,16 @@
                         <td></td>
                     @endif
                     <td style="text-align: right">EDAD:</td>
-                    <td><b>{{$resultado->edad}} AÑOS</b></td>
+                    <td><b>{{$resultado->edad}}
+
+                            @if($resultado->medida == 1)
+                                Dias
+                            @elseif($resultado->medida == 2)
+                                Años
+                            @elseif($resultado->medida == 3)
+                                Meses
+                            @endif
+                        </b></td>
                 </tr>
                 </tbody>
             </table>

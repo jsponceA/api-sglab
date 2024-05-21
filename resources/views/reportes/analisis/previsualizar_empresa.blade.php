@@ -32,7 +32,7 @@
 
 <div style="width: 100%">
     <p style="margin: 0;text-align: right;font-size: 13px">Pag. 1/1</p>
-    <img src="{{$empresa->imagen_cabecera_url}}" style="width: 100%;height: 96px" alt="">
+    <img src="{{$empresa->imagen_cabecera_url}}" style="width: 100%;height: 90px" alt="">
     <hr style="color: #49B8E5;visibility: hidden">
 
 </div>

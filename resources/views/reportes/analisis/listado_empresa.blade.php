@@ -36,9 +36,9 @@
             <img src="{{$empresa->imagen_cabecera_url}}" style="width: 100%;height: 90px" alt="">
         @else
             @if($cabecera == 1)
-                <img src="{{asset('img/hoja-membretada-01_01.png')}}" style="width: 100%;height: 96px" alt="">
+                <img src="{{asset('img/hoja-membretada-01_01.png')}}" style="width: 100%;height: 90px" alt="">
             @else
-                <img src="{{asset('img/hoja-membretada-01_01.png')}}" style="width: 100%;height: 96px;visibility: hidden" alt="">
+                <img src="{{asset('img/hoja-membretada-01_01.png')}}" style="width: 100%;height: 90px;visibility: hidden" alt="">
             @endif
         @endif
 
@@ -65,7 +65,15 @@
                     <td></td>
                     <td></td>
                     <td style="text-align: right">EDAD:</td>
-                    <td><b>{{$resultado->edad}} AÑOS</b></td>
+                    <td><b>{{$resultado->edad}}
+                            @if($resultado->medida == 1)
+                                Dias
+                            @elseif($resultado->medida == 2)
+                                Años
+                            @elseif($resultado->medida == 3)
+                                Meses
+                            @endif
+                        </b></td>
                 </tr>
                 </tbody>
             </table>
