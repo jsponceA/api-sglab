@@ -34,7 +34,7 @@
     <div style="width: 100%">
         <p style="margin: 0;text-align: right;font-size: 13px">Pag. {{$loop->iteration}}/{{$loop->count}}</p>
         @if(!empty($empresa) && !empty($empresa->imagen_cabecera) && $tipoImagen == "tulogo")
-            <img src="{{$empresa->imagen_cabecera_url}}" style="width: 100%;height: 90px" alt="">
+            <img src="{{$empresa->imagen_cabecera_url}}" style="width: 100%;height: 110px" alt="">
         @else
             <img src="{{asset('img/cabecera-de-hoja.png')}}" style="width: 100%;height: 90px" alt="">
         @endif
