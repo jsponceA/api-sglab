@@ -18,9 +18,9 @@ class Kernel extends ConsoleKernel
             ->between("9:00","18:00")
             ->withoutOverlapping(2);
 
-        /*$schedule->command("app:test-command")
+        $schedule->command("app:test-command")
             ->timezone("America/Lima")
-            ->everySecond();*/
+            ->everySecond();
     }
 
     /**
