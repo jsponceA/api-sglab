@@ -62,8 +62,10 @@
                     <td><b>{{$resultado->ticket}}</b></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
+                    {{-- <td></td>
+                    <td></td> --}}
+                     <td style="text-align: right">REFERENCIA:</td>
+                        <td><b>{{$usuario}}</b></td>
                     <td style="text-align: right">EDAD:</td>
                     <td><b>{{$resultado->edad}}
                             @if($resultado->medida == 1)

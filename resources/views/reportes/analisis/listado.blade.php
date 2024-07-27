@@ -58,13 +58,16 @@
                     <td><b>{{$resultado->ticket}}</b></td>
                 </tr>
                 <tr>
-                    @if($tipoUsuario == "empresa")
+                    {{-- @if($tipoUsuario == "empresa")
                         <td style="text-align: right">REFERENCIA:</td>
                         <td><b>{{$usuario}}</b></td>
                     @else
                         <td></td>
                         <td></td>
-                    @endif
+                    @endif --}}
+                    <td style="text-align: right">REFERENCIA:</td>
+                        <td><b>{{$usuario}}</b></td>
+                        
                     <td style="text-align: right">EDAD:</td>
                     <td><b>{{$resultado->edad}}
 
