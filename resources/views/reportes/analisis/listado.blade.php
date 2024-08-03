@@ -145,7 +145,7 @@
                                         <span style="margin: 0">{{$an->val_min.$an->separador.$an->val_max}}</span>
                                     @endif
                                     @if(!empty($an->referencia))
-                                        <span style="margin:0;font-size: 12px;">{!! nl2br($an->referencia) !!}</span>
+                                        <span style="margin:0;font-size: 12px;">{!! nl2br(htmlspecialchars($an->referencia, ENT_QUOTES, 'UTF-8')) !!}</span>
                                     @endif
                                 </td>
                             @endif
