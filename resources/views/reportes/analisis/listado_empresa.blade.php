@@ -62,8 +62,13 @@
                     <td><b>{{$resultado->ticket}}</b></td>
                 </tr>
                 <tr>
-                     <td style="text-align: right">REFERENCIA:</td>
+                    @if($empresa->mostrar_referencia)
+                        <td style="text-align: right">REFERENCIA:</td>
                         <td><b>{{$usuario}}</b></td>
+                    @else
+                        <td></td>
+                        <td></td>
+                    @endif
                     <td style="text-align: right">EDAD:</td>
                     <td><b>{{$resultado->edad}}
                             @if($resultado->medida == 1)

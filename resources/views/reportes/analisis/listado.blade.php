@@ -58,7 +58,7 @@
                     <td><b>{{$resultado->ticket}}</b></td>
                 </tr>
                 <tr>
-                    @if($tipoUsuario == "empresa")
+                    @if($empresa->mostrar_referencia)
                         <td style="text-align: right">REFERENCIA:</td>
                         <td><b>{{$usuario}}</b></td>
                     @else
