@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("codigo",50)->unique();
             $table->string("nombres",255)->nullable();
+            $table->boolean("mostrar_referencia")->default(0)->nullable();
             $table->string("imagen_cabecera",255)->nullable();
             $table->string("imagen_pie_pagina",255)->nullable();
             $table->boolean("estado")->default(0)->nullable();

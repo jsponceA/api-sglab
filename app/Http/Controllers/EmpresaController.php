@@ -117,4 +117,14 @@ class EmpresaController extends Controller
             "message" => "Se actualizaron los datos correctamente"
         ],Response::HTTP_OK);
     }
+
+    public function actualizarReferencia(Request $request,$id)
+    {
+        $empresa = Empresa::query()->findOrFail($id);
+        $empresa->mostrar_referencia = !$empresa->mostrar_referencia;
+        $empresa->update();
+        return response()->json([
+            "message" => "Se actualizaron los datos correctamente"
+        ],Response::HTTP_OK);
+    }
 }

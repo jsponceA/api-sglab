@@ -52,6 +52,7 @@ Route::apiResource("resultados",ResultadoController::class);
 /* FIN DE RUTAS PARA RESULTADOS */
 
 /* RUTAS PARA EMPRESAS */
+Route::post("empresas/actualizarReferencia/{id}",[EmpresaController::class,'actualizarReferencia']);
 Route::post("empresas/eliminarImagen/{id}",[EmpresaController::class,'eliminarImagen']);
 Route::post("empresas/sincronizarNuevasEmpresas",[EmpresaController::class,'sincronizarNuevasEmpresas']);
 Route::post("empresas/previsualizarPdf",[EmpresaController::class,'previsualizarPdf']);
