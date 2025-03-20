@@ -26,6 +26,12 @@
             page-break-after: always;
         }
 
+        br {
+          display: block;
+          margin: 0;
+          line-height: 1;
+        }
+
     </style>
 </head>
 <body>
