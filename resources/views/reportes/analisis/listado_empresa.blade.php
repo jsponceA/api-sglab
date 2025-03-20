@@ -26,11 +26,7 @@
             page-break-after: always;
         }
 
-        br {
-          display: block;
-          margin: 0;
-          line-height: 0.3;
-        }
+       
 
     </style>
 </head>
@@ -154,7 +150,7 @@
                                             <span style="margin: 0">{{$an->val_min.$an->separador.$an->val_max}}</span>
                                         @endif
                                         @if(!empty($an->referencia))
-                                            <span style="margin:0;font-size: 12px;">{!! nl2br(htmlspecialchars($an->referencia, ENT_QUOTES, 'UTF-8')) !!}</span>
+                                            <span style="margin:0;font-size: 11px;display: inline-block; line-height: 0.3;">{!! nl2br(htmlspecialchars($an->referencia, ENT_QUOTES, 'UTF-8')) !!}</span>
                                         @endif
                                     </td>
                                 @endif
