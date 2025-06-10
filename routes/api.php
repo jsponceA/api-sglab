@@ -48,6 +48,7 @@ Route::apiResource("usuarios",UsuarioController::class);
 /* RUTAS PARA RESULTADOS */
 Route::post("resultados/generarExcelResultados",[ResultadoController::class,'generarExcelResultados']);
 Route::post("resultados/generarPdfResultadoAnalisis",[ResultadoController::class,'generarPdfResultadoAnalisis']);
+Route::post("resultados/enviarCorreoResultado",[ResultadoController::class,'enviarCorreoResultado']);
 Route::apiResource("resultados",ResultadoController::class);
 /* FIN DE RUTAS PARA RESULTADOS */
 

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ResultadoExport;
+use App\Mail\Resultado;
 use App\Models\Empresa;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -127,5 +129,68 @@ class ResultadoController extends Controller
 
         $pdf = Pdf::loadView($vista, compact("resultado", "analisis", "ticket","usuario","tipoUsuario","cabecera","empresa","tipoImagen"));
         return $pdf->download('reporte_analisis.pdf');
+    }
+
+    public function enviarCorreoResultado(Request $request)
+    {
+        $request->validate([
+            "correo" => "required|email",
+        ]);
+
+        $tipoUsuario = $request->input("tipoUsuario");
+        $ticket = $request->input("ticket");
+        $resultado = (object)$request->input("resultado");
+        $usuario = $request->input("usuario");
+        $cabecera = $request->input("cabecera");
+        $codigoEmpresa = $request->input("codigoEmpresa");
+        $tipoImagen = $request->input("tipoImagen");
+        $correo = $request->input("correo");
+
+        $dataQuery = [
+            "ticket" => $ticket
+        ];
+        switch ($tipoUsuario) {
+            case 'paciente':
+                $queryAnalisis = DB::select("SET NOCOUNT ON; exec dbo.web_resultado :ticket", $dataQuery);
+                break;
+            case 'medico':
+                $queryAnalisis = DB::select("SET NOCOUNT ON; exec dbo.web_resultado :ticket", $dataQuery);
+                break;
+            case 'empresa':
+                $queryAnalisis = DB::select("SET NOCOUNT ON; exec dbo.web_resultado :ticket", $dataQuery);
+                break;
+            default:
+                $queryAnalisis = [];
+                break;
+        }
+
+        $analisis = collect($queryAnalisis)->groupBy(function ($item) {
+            return $item->grupo;
+        });
+
+        if ($tipoUsuario == "empresa"){
+            $vista = "reportes.analisis.listado_empresa";
+        }else{
+            $vista = "reportes.analisis.listado";
+        }
+
+        $empresa = Empresa::query()->where("codigo",$codigoEmpresa)->first();
+
+        $pdf = Pdf::loadView($vista, compact("resultado", "analisis", "ticket","usuario","tipoUsuario","cabecera","empresa","tipoImagen"));
+
+
+        try {
+            Mail::send(new Resultado($correo, $resultado, $pdf->output()));
+
+            return response()->json([
+                "message" => "Se envió el resultado por correo exitosamente."
+            ], Response::HTTP_OK);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                "message" => "No se pudo enviar el resultado por correo. Intente nuevamente más tarde.",
+                "error" => $e->getMessage(), // Opcional: quitar en producción
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }
