@@ -8,7 +8,7 @@
 <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
     <tr>
         <td align="center" bgcolor="#4AB8E5" style="padding: 20px 0;">
-            <h1 style="color: #ffffff; margin: 0;">Laboratorios SGLAB'S</h1>
+            <h1 style="color: #ffffff; margin: 0;">Laboratorio SGLAB'S</h1>
         </td>
     </tr>
     <tr>
@@ -20,12 +20,12 @@
                         <p>Estimado(a) cliente,</p>
                         <p>Adjunto a este correo encontrará el resultado de su examen realizado con nosotros.</p>
                         <p>Si tiene alguna consulta o necesita asistencia, no dude en contactarnos.</p>
-                        <p style="margin-top: 30px;">Atentamente,<br><strong>Laboratorios SGLAB'S</strong></p>
+                        <p style="margin-top: 30px;">Atentamente,<br><strong>Laboratorio SGLAB'S</strong></p>
                     </td>
                 </tr>
                 <tr>
                     <td bgcolor="#4AB8E5" style="padding: 20px; text-align: center; color: #ffffff;">
-                        © {{ date('Y') }} Laboratorios SGLAB'S. Todos los derechos reservados.
+                        © {{ date('Y') }} Laboratorio SGLAB'S. Todos los derechos reservados.
                     </td>
                 </tr>
             </table>

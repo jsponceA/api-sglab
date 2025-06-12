@@ -34,7 +34,7 @@ class Resultado extends Mailable
         return new Envelope(
             from: new Address(config("mail.from.address"), config("mail.from.name")),
             to: [new Address($this->correoDestino, $this->resultado?->apenom)],
-            subject: "SGLAB - RESULTADO DE EXAMEN: {$this->resultado?->ticket}",
+            subject: "Laboratorio SGLAB'S - RESULTADO DE EXAMEN: {$this->resultado?->ticket}",
         );
     }
 
