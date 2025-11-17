@@ -26,48 +26,62 @@ class ResultadoController extends Controller
 
         switch ($tipoUsuario) {
             case 'paciente':
-                $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigopaciente :codigo", [
-                    "codigo" => $codigo
+                $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigopaciente :codigo,:page,:perPage", [
+                    "codigo" => $codigo,
+                    "page" => $pagina,
+                    "perPage" => $registrosPorPagina
                 ]);
                 //filtro para pacientes
-                $resultados = collect($resultados)->filter(fn($item) => empty($item->cia))->values();
+                $resultados = collect($resultados)->filter(fn($item) => empty($item->cia))->toArray();
                 break;
 
             case 'medico':
                 if (!empty($apenom) && (empty($fechaInicio) && empty($fechaFin))) {
-                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigomedicoxapenom :codigo,:apenom ", [
+                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigomedicoxapenom :codigo,:apenom,:page,:perPage ", [
                         "codigo" => $codigo,
-                        "apenom" => '%' . $apenom . '%'
+                        "apenom" => '%' . $apenom . '%',
+                        "page" => $pagina,
+                        "perPage" => $registrosPorPagina
                     ]);
                 } elseif (!empty($fechaInicio) || !empty($fechaFin)) {
-                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigomedicoxfecha :codigo,:fechaInicio,:fechaFin,:apenom ", [
+                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigomedicoxfecha :codigo,:fechaInicio,:fechaFin,:apenom,:page,:perPage", [
                         "codigo" => $codigo,
                         "fechaInicio" => $fechaInicio,
                         "fechaFin" => $fechaFin,
-                        "apenom" => !empty($apenom) ? ('%' . $apenom . '%') : '%'
+                        "apenom" => !empty($apenom) ? ('%' . $apenom . '%') : '%',
+                        "page" => $pagina,
+                        "perPage" => $registrosPorPagina
                     ]);
                 } else {
-                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigomedicoxapenom :codigo,'%'", [
-                        "codigo" => $codigo
+                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigomedicoxapenom :codigo,'%',:page,:perPage", [
+                        "codigo" => $codigo,
+                        "page" => $pagina,
+                        "perPage" => $registrosPorPagina
                     ]);
                 }
                 break;
             case 'empresa':
                 if (!empty($apenom) && (empty($fechaInicio) && empty($fechaFin))) {
-                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigociaxapenom :codigo,:apenom ", [
+                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigociaxapenom :codigo,:apenom,:page,:perPage", [
                         "codigo" => $codigo,
-                        "apenom" => '%' . $apenom . '%'
+                        "apenom" => '%' . $apenom . '%',
+                        "page" => $pagina,
+                        "perPage" => $registrosPorPagina
                     ]);
                 } elseif (!empty($fechaInicio) || !empty($fechaFin)) {
-                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigociaxfecha :codigo,:fechaInicio,:fechaFin,:apenom ", [
+                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigociaxfecha :codigo,:fechaInicio,:fechaFin,:apenom,:page,:perPage ", [
                         "codigo" => $codigo,
                         "fechaInicio" => $fechaInicio,
                         "fechaFin" => $fechaFin,
-                        "apenom" => !empty($apenom) ? ('%' . $apenom . '%') : '%'
+                        "apenom" => !empty($apenom) ? ('%' . $apenom . '%') : '%',
+                        "page" => $pagina,
+                        "perPage" => $registrosPorPagina
                     ]);
                 } else {
-                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigocia :codigo", [
-                        "codigo" => $codigo
+                    $resultados = DB::select("SET NOCOUNT ON; exec dbo.web_ordenesxcodigocia :codigo,:page,:perPage", [
+                        "codigo" => $codigo,
+                        "page" => $pagina,
+                        "perPage" => $registrosPorPagina
                     ]);
                 }
                 break;
@@ -76,10 +90,27 @@ class ResultadoController extends Controller
                 break;
         }
 
+        // El total viene en la columna 'total' de cada fila
+        $total = !empty($resultados) && !empty($resultados[0]->total) ? $resultados[0]->total : 0;
+        $totalPaginas = ceil($total / $registrosPorPagina);
 
-        return response()->json([
-            "resultados" => $resultados
-        ], Response::HTTP_OK);
+        // Limpiar el campo 'total' de los datos
+        $resultados = array_map(function($item) {
+            $data = (array) $item;
+            unset($data['total']);
+            return (object) $data;
+        }, $resultados);
+
+        $response = [
+            'resultados' => $resultados,
+            'current_page' => $pagina,
+            'per_page' => $registrosPorPagina,
+            'total' => $total,
+            'total_pages' => $totalPaginas
+        ];
+
+
+        return response()->json($response, Response::HTTP_OK);
     }
 
     public function generarExcelResultados(Request $request)
