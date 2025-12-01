@@ -32,7 +32,7 @@ class ResultadoController extends Controller
                     "perPage" => $registrosPorPagina
                 ]);
                 //filtro para pacientes
-                $resultados = collect($resultados)->filter(fn($item) => empty($item->cia))->toArray();
+                $resultados = collect($resultados)->filter(fn($item) => empty($item->cia))->values()->all();
                 break;
 
             case 'medico':
