@@ -12,7 +12,7 @@
             font-style: normal;
         }
 
-        * {
+        body, body * {
             font-family: 'Arial MT', serif;
             margin-top: 5px !important;
             margin-bottom: 5px !important;
@@ -27,16 +27,41 @@
             page-break-after: always;
         }
 
+        /* Se reserva el espacio inferior para el pie de pagina para que el contenido no quede debajo de la firma */
+        @page {
+            margin: 5px 1.2cm 5.8cm 1.2cm;
+        }
+
+        .pie-pagina {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: -4.6cm;
+        }
+
     </style>
 </head>
 <body>
+<div class="pie-pagina">
+    @if(!empty($empresa) && !empty($empresa->imagen_pie_pagina) && $tipoImagen == "tulogo")
+        <div style="text-align: right">
+            <img src="{{public_path('img/firma_dr_rafael.png')}}" style="width: 200px;height:90px;" alt="">
+        </div>
+        <img src="{{$empresa->imagenPiePaginaPdf()}}" style="width: 100%;" alt="">
+    @else
+        <div style="text-align: right">
+            <img src="{{public_path('img/firma_dr_rafael.png')}}" style="width: 200px;height:90px;" alt="">
+        </div>
+        <img src="{{public_path('img/pie-de-pagina.png')}}" style="width: 100%;" alt="">
+    @endif
+</div>
 @foreach($analisis as $key => $groupAnalisis)
     <div style="width: 100%">
         <p style="margin: 0;text-align: right;font-size: 13px">Pag. {{$loop->iteration}}/{{$loop->count}}</p>
         @if(!empty($empresa) && !empty($empresa->imagen_cabecera) && $tipoImagen == "tulogo")
-            <img src="{{$empresa->imagen_cabecera_url}}" style="width: 100%;height: 110px" alt="">
+            <img src="{{$empresa->imagenCabeceraPdf()}}" style="width: 100%;height: 110px" alt="">
         @else
-            <img src="{{asset('img/cabecera-de-hoja.png')}}" style="width: 100%;height: 90px" alt="">
+            <img src="{{public_path('img/cabecera-de-hoja.png')}}" style="width: 100%;height: 90px" alt="">
         @endif
 
     </div>
@@ -163,19 +188,6 @@
     </div>
 
 
-    <div style="width: 100%;position: absolute;bottom: 0">
-        @if(!empty($empresa) && !empty($empresa->imagen_pie_pagina) && $tipoImagen == "tulogo")
-        <div style="text-align: right">
-                <img src="{{asset('img/firma_dr_rafael.png')}}" style="width: 200px;height:90px;" alt="">
-            </div>
-            <img src="{{$empresa->imagen_pie_pagina_url}}" style="width: 100%;" alt="">
-        @else
-            <div style="text-align: right">
-                <img src="{{asset('img/firma_dr_rafael.png')}}" style="width: 200px;height:90px;" alt="">
-            </div>
-            <img src="{{asset('img/pie-de-pagina.png')}}" style="width: 100%;" alt="">
-        @endif
-    </div>
     @if(!$loop->last)
         <div class="page-break"></div>
     @endif

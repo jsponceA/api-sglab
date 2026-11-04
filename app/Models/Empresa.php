@@ -39,4 +39,29 @@ class Empresa extends Model
             get: fn() => !empty($this->imagen_pie_pagina) ? Storage::url("empresas/{$this->imagen_pie_pagina}") : null,
         );
     }
+
+    /**
+     * Imagenes para el PDF: se usa la ruta local si existe (evita que dompdf descargue la imagen por HTTP/HTTPS),
+     * de lo contrario se usa la URL.
+     */
+    public function imagenCabeceraPdf(): ?string
+    {
+        return $this->rutaImagenPdf($this->imagen_cabecera, $this->imagen_cabecera_url);
+    }
+
+    public function imagenPiePaginaPdf(): ?string
+    {
+        return $this->rutaImagenPdf($this->imagen_pie_pagina, $this->imagen_pie_pagina_url);
+    }
+
+    private function rutaImagenPdf(?string $archivo, ?string $url): ?string
+    {
+        if (empty($archivo)) {
+            return $url;
+        }
+
+        $ruta = storage_path("app/public/empresas/{$archivo}");
+
+        return is_file($ruta) ? $ruta : $url;
+    }
 }
