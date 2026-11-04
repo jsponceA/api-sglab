@@ -1,7 +1,7 @@
 <!doctype html>
 @php
     // La cabecera se repite en cada hoja: se reserva su alto en el margen superior de la pagina
-    $margenSuperior = !empty($empresa) && !empty($empresa->imagen_cabecera) && $tipoImagen == "tulogo" ? "6.8cm" : "6.3cm";
+    $margenSuperior = !empty($empresa) && !empty($empresa->imagen_cabecera) && $tipoImagen == "tulogo" ? "8.0cm" : "7.5cm";
 @endphp
 <html>
 <head>
@@ -119,24 +119,44 @@
 
         </div>
     </div>
-</div>
-@foreach($analisis as $key => $groupAnalisis)
     <div style="width: 100%;margin-top: 10px;">
-        <table border="0" cellpadding="0" style="width: 100%;border-collapse: collapse;">
-            <thead>
+        <table border="0" cellpadding="0" style="width: 100%;border-collapse: collapse;table-layout: fixed;">
+            <tbody>
+            <tr style="height: 0;line-height: 0;font-size: 0"><td style="width: 32%;padding: 0;height: 0;line-height: 0;font-size: 0"></td><td style="width: 15%;padding: 0;height: 0;line-height: 0;font-size: 0"></td><td style="width: 10%;padding: 0;height: 0;line-height: 0;font-size: 0"></td><td style="width: 43%;padding: 0;height: 0;line-height: 0;font-size: 0"></td></tr>
             <tr style="font-size: 14px">
                 <td style="border: 2px solid black;border-right: 0;padding: 3px"><b>ANALISIS</b></td>
                 <td style="border: 2px solid black;border-right: 0;border-left: 0;padding: 3px"><b>RESULTADO</b></td>
                 <td style="border: 2px solid black;border-right: 0;border-left: 0;padding: 3px"><b>UNIDAD</b></td>
                 <td style="border: 2px solid black;border-left: 0;padding: 3px"><b>VALORES DE REFERENCIA</b></td>
             </tr>
-            </thead>
+            </tbody>
+        </table>
+    </div>
+</div>
+@foreach($analisis as $key => $groupAnalisis)
+            @php
+                // Las filas consecutivas de un mismo perfil (titulo + sus analisis) van en un bloque
+                // que no se corta entre hojas. Las filas sin perfil se pueden partir libremente.
+                $bloques = [];
+                foreach ($groupAnalisis as $item) {
+                    $nombrePerfil = trim((string)$item->perfil);
+                    if (empty($bloques) || $bloques[count($bloques) - 1]["nombre"] !== $nombrePerfil) {
+                        $bloques[] = ["nombre" => $nombrePerfil, "perfil" => $nombrePerfil !== "", "items" => []];
+                    }
+                    $bloques[count($bloques) - 1]["items"][] = $item;
+                }
+            @endphp
+            @foreach($bloques as $bloque)
+        <table border="0" cellpadding="0" style="width: 100%;border-collapse: collapse;table-layout: fixed;margin-top: 0 !important;margin-bottom: 0 !important;@if($bloque["perfil"]) page-break-inside: avoid; @endif">
             <tbody>
+            <tr style="height: 0;line-height: 0;font-size: 0"><td style="width: 32%;padding: 0;height: 0;line-height: 0;font-size: 0"></td><td style="width: 15%;padding: 0;height: 0;line-height: 0;font-size: 0"></td><td style="width: 10%;padding: 0;height: 0;line-height: 0;font-size: 0"></td><td style="width: 43%;padding: 0;height: 0;line-height: 0;font-size: 0"></td></tr>
+            @if($loop->first)
             <tr>
                 <td colspan="4" style="padding-top: 3px;padding-bottom: 3px"><b style="font-size: 17px">{{$key}}</b>
                 </td>
             </tr>
-            @foreach($groupAnalisis as $an)
+            @endif
+            @foreach($bloque["items"] as $an)
                 @if($an->perfil == $an->nombreexamen && $an->tipo == 4)
                     <tr>
                         <td colspan="4"><b style="font-size: 15px">{{$an->perfil}}</b></td>
@@ -200,7 +220,7 @@
             @endforeach
             </tbody>
         </table>
-    </div>
+            @endforeach
 
 
     @if(!$loop->last)
