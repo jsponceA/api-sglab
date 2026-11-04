@@ -1,4 +1,8 @@
 <!doctype html>
+@php
+    // La cabecera se repite en cada hoja: se reserva su alto en el margen superior de la pagina
+    $margenSuperior = !empty($empresa) && !empty($empresa->imagen_cabecera) && $tipoImagen == "tulogo" ? "6.8cm" : "6.3cm";
+@endphp
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -29,7 +33,14 @@
 
         /* Se reserva el espacio inferior para el pie de pagina para que el contenido no quede debajo de la firma */
         @page {
-            margin: 5px 1.2cm 5.8cm 1.2cm;
+            margin: {{$margenSuperior}} 1.2cm 5.8cm 1.2cm;
+        }
+
+        .cabecera-pagina {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: -{{$margenSuperior}};
         }
 
         .pie-pagina {
@@ -55,9 +66,9 @@
         <img src="{{public_path('img/pie-de-pagina.png')}}" style="width: 100%;" alt="">
     @endif
 </div>
-@foreach($analisis as $key => $groupAnalisis)
+<div class="cabecera-pagina">
     <div style="width: 100%">
-        <p style="margin: 0;text-align: right;font-size: 13px">Pag. {{$loop->iteration}}/{{$loop->count}}</p>
+        <p style="margin: 0;text-align: right;font-size: 13px">&nbsp;</p>
         @if(!empty($empresa) && !empty($empresa->imagen_cabecera) && $tipoImagen == "tulogo")
             <img src="{{$empresa->imagenCabeceraPdf()}}" style="width: 100%;height: 110px" alt="">
         @else
@@ -108,15 +119,19 @@
 
         </div>
     </div>
+</div>
+@foreach($analisis as $key => $groupAnalisis)
     <div style="width: 100%;margin-top: 10px;">
         <table border="0" cellpadding="0" style="width: 100%;border-collapse: collapse;">
-            <tbody>
+            <thead>
             <tr style="font-size: 14px">
                 <td style="border: 2px solid black;border-right: 0;padding: 3px"><b>ANALISIS</b></td>
                 <td style="border: 2px solid black;border-right: 0;border-left: 0;padding: 3px"><b>RESULTADO</b></td>
                 <td style="border: 2px solid black;border-right: 0;border-left: 0;padding: 3px"><b>UNIDAD</b></td>
                 <td style="border: 2px solid black;border-left: 0;padding: 3px"><b>VALORES DE REFERENCIA</b></td>
             </tr>
+            </thead>
+            <tbody>
             <tr>
                 <td colspan="4" style="padding-top: 3px;padding-bottom: 3px"><b style="font-size: 17px">{{$key}}</b>
                 </td>

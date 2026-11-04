@@ -159,6 +159,7 @@ class ResultadoController extends Controller
         $empresa = Empresa::query()->where("codigo",$codigoEmpresa)->first();
 
         $pdf = Pdf::loadView($vista, compact("resultado", "analisis", "ticket","usuario","tipoUsuario","cabecera","empresa","tipoImagen"));
+        $this->numerarPaginas($pdf);
         return $pdf->download('reporte_analisis.pdf');
     }
 
@@ -208,6 +209,7 @@ class ResultadoController extends Controller
         $empresa = Empresa::query()->where("codigo",$codigoEmpresa)->first();
 
         $pdf = Pdf::loadView($vista, compact("resultado", "analisis", "ticket","usuario","tipoUsuario","cabecera","empresa","tipoImagen"));
+        $this->numerarPaginas($pdf);
 
 
         try {
@@ -223,5 +225,24 @@ class ResultadoController extends Controller
                 "error" => $e->getMessage(), // Opcional: quitar en producción
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
+
+    /**
+     * Dibuja "Pag. X/Y" en la parte superior derecha de cada hoja del PDF.
+     * Se hace sobre el canvas porque cada grupo de analisis puede ocupar mas de una hoja.
+     */
+    private function numerarPaginas($pdf): void
+    {
+        $pdf->render();
+
+        $pdf->getDomPDF()->getCanvas()->page_script(function ($pageNumber, $pageCount, $canvas, $fontMetrics) {
+            $texto = "Pag. {$pageNumber}/{$pageCount}";
+            $fuente = $fontMetrics->getFont("Arial MT") ?: $fontMetrics->getFont("helvetica");
+            $tamano = 10;
+            $ancho = $fontMetrics->getTextWidth($texto, $fuente, $tamano);
+
+            // 34pt = margen lateral de la pagina (1.2cm)
+            $canvas->text($canvas->get_width() - 34 - $ancho, 12, $texto, $fuente, $tamano);
+        });
     }
 }
