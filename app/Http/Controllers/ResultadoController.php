@@ -237,8 +237,8 @@ class ResultadoController extends Controller
 
         $pdf->getDomPDF()->getCanvas()->page_script(function ($pageNumber, $pageCount, $canvas, $fontMetrics) {
             $texto = "Pag. {$pageNumber}/{$pageCount}";
-            $fuente = $fontMetrics->getFont("Arial MT") ?: $fontMetrics->getFont("helvetica");
-            $tamano = 10;
+            $fuente = $fontMetrics->getFont("helvetica");
+            $tamano = 9;
             $ancho = $fontMetrics->getTextWidth($texto, $fuente, $tamano);
 
             // 34pt = margen lateral de la pagina (1.2cm)
