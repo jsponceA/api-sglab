@@ -160,7 +160,7 @@
                     </tr>
                 @else
                     @if(!empty($an->validadom))
-                        <tr style="font-size: 13px;line-height: 20px">
+                        <tr style="font-size: 13px;line-height: 17.5px">
                             <td style="vertical-align: top;padding: 0" >
                                 {{$an->nombreexamen}}
                             </td>

@@ -12,7 +12,7 @@ namespace App\Support;
 class BloquesResultado
 {
     // Alturas estimadas en puntos (pt), calibradas con el render de dompdf
-    private const FILA = 15.0;
+    private const FILA = 13.8;
     private const FILA_TITULO = 20.0;
     private const LINEA_NOMBRE = 12.0;
     private const LINEA_REFERENCIA = 9.3;
